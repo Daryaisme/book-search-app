@@ -1,0 +1,78 @@
+@font-face {
+  font-family: Inter;
+  src: url(/assets/fonts/Inter_18pt-Regular.ttf);
+}
+
+@font-face {
+  font-family: Inter;
+  src: url(/assets/fonts/Inter_18pt-Black.ttf);
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url(/assets/fonts/Inter_18pt-Bold.ttf);
+  font-weight: 700;
+}
+
+:root {
+  --primary-text-color: #0d121c;
+  --secondary-text-color: #4f6696;
+
+  --background-color: #f0f1f1;
+
+  --border-color: #e5e8eb;
+
+  --button-background-color: #1a5ce5;
+  --button-background-color-hover: #2231b2;
+  --button-background-color-active: #2231b2;
+
+  --white-color: #ffffff;
+
+  --border-radius: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Inter, Helvetica, sans-serif;
+  transition: all 0.3s ease-out;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+.container {
+  width: 80vw;
+  margin: 0 auto;
+}
+
+.btn {
+  background-color: var(--button-background-color) !important;
+  color: var(--white-color);
+  border: none;
+  border-radius: var(--border-radius) !important;
+  font-family: inherit !important;
+
+  &:hover {
+    background-color: var(--button-background-color-hover) !important;
+  }
+
+  &:active {
+    background-color: var(--button-background-color-active) !important;
+  }
+
+  &[size="s"] {
+    height: 32px !important;
+  }
+}
+
+.inp {
+  border-radius: var(--border-radius) !important;
+
+  &[data-focus="true"] {
+    outline-color: var(--button-background-color-active) !important;
+  }
+}

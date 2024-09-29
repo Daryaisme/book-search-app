@@ -1,0 +1,30 @@
+.banner__wrapper {
+  height: 480px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-top: -36px;
+
+  .container {
+    display: flex;
+    height: 100%;
+    padding: 24px 0;
+  }
+}
+
+.banner__heading,
+.banner__subtitle {
+  color: var(--white-color);
+}
+
+.banner__heading {
+  align-self: flex-end;
+}
+
+.searchInput__wrapper {
+  width: 480px;
+}
+
+.searchInput__button {
+  margin-left: 16px;
+}

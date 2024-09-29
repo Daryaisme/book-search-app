@@ -1,0 +1,19 @@
+<div>
+  <app-banner
+    heading="BookLab — Your Guide to the Literary World!"
+    subtitle="Discover, explore, and find your next favorite book with ease!"
+    imgUrl="/assets/images/banner.jpg"
+    [isSearchable]="true"
+    placeholder="Find your next favorite book..."
+  />
+
+  <div class="container">
+    @for (book of books$ | async; track book.id) {
+      <app-book-card [book]="book" />
+    }
+
+    <!-- @if (books?.num_found) { @for (book of books?.docs; track book.key) {
+    <app-book-card [book]="book" />
+    } } @else { <div>Nothing</div> } -->
+  </div>
+</div>
