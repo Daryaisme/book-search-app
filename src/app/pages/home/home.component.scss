@@ -1,0 +1,13 @@
+.table__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container {
+  padding: 20px 0;
+}
+
+.notFound__text {
+  color: var(--secondary-text-color);
+}

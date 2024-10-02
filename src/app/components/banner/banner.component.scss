@@ -12,19 +12,19 @@
   }
 }
 
-.banner__heading,
-.banner__subtitle {
-  color: var(--white-color);
-}
-
-.banner__heading {
-  align-self: flex-end;
-}
-
 .searchInput__wrapper {
   width: 480px;
 }
 
-.searchInput__button {
+[tuiTitle],
+[tuiSubtitle] {
+  color: var(--white-color);
+}
+
+[tuiTitle] {
+  align-self: flex-end;
+}
+
+[tuiButton] {
   margin-left: 16px;
 }

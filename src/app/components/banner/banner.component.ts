@@ -12,19 +12,17 @@ import { BookActions } from '../../store/book/book.actions';
   styleUrl: './banner.component.scss',
 })
 export class BannerComponent {
-  private _store = inject(Store);
-
   @Input({ required: true }) heading!: string;
   @Input({ required: true }) subtitle!: string;
   @Input({ required: true }) imgUrl!: string;
   @Input() isSearchable = false;
   @Input() placeholder = '';
 
+  constructor(private store: Store) {}
+
   searchValue = '';
 
-  add() {
-    console.log(this.searchValue);
-
-    this._store.dispatch(new BookActions.GetList(this.searchValue));
+  handleSearchButtonClick() {
+    this.store.dispatch(new BookActions.UpdateList(this.searchValue));
   }
 }

@@ -1,9 +1,9 @@
 <div class="banner__wrapper" [style.background-image]="'url(' + imgUrl + ')'">
   <div class="container">
-    <h2 tuiTitle="l" class="banner__heading">
+    <h2 tuiTitle="l">
       {{ heading }}
 
-      <div tuiSubtitle class="banner__subtitle">{{ subtitle }}</div>
+      <div tuiSubtitle>{{ subtitle }}</div>
 
       @if (isSearchable) {
       <tui-textfield iconStart="@tui.search" class="searchInput__wrapper">
@@ -14,7 +14,7 @@
           [(ngModel)]="searchValue"
         />
 
-        <button size="s" tuiButton class="searchInput__button btn" (click)="add()">Search</button>
+        <button [disabled]="searchValue.length === 0" size="s" tuiButton class="btn" (click)="handleSearchButtonClick()">Search</button>
       </tui-textfield>
       }
     </h2>

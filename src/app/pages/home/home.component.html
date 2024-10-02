@@ -8,12 +8,16 @@
   />
 
   <div class="container">
-    @for (book of books$ | async; track book.id) {
-      <app-book-card [book]="book" />
-    }
+    @if (totalCount) {
+    <app-table class="table__wrapper" />
+    } @else {
+    <tui-block-status>
+      <img src="/assets/images/no-results.png" alt="not found" tuiSlot="top" />
 
-    <!-- @if (books?.num_found) { @for (book of books?.docs; track book.key) {
-    <app-book-card [book]="book" />
-    } } @else { <div>Nothing</div> } -->
+      <h4 class="notFound__text">Not found</h4>
+
+      Try to find something using input
+    </tui-block-status>
+    }
   </div>
 </div>

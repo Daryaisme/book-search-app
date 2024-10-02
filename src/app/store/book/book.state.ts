@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { BookActions } from './book.actions';
 import { Book } from '../../types/book';
@@ -7,6 +7,7 @@ import { BookService } from '../../services/book.service';
 export interface BookStateModel {
   books: Book[];
   total: number;
+  searchString: string;
   page: number;
   limit: number;
 }
@@ -16,40 +17,60 @@ export interface BookStateModel {
   defaults: {
     books: [],
     total: 0,
+    searchString: '',
     page: 1,
     limit: 10,
   },
 })
 @Injectable()
 export class BookState {
-  private _bookService = inject(BookService);
+  constructor(private bookService: BookService) {}
 
   @Selector()
   static getBooks(state: BookStateModel) {
     console.log('Current state:', state);
 
-    return state.books;
+    return { books: state.books, total: state.total, page: state.page };
   }
 
-  @Action(BookActions.GetList)
-  getList(
+  @Selector()
+  static getTotalCount(state: BookStateModel) {
+    console.log('Current state total:', state.total);
+
+    return state.total;
+  }
+
+  @Action(BookActions.UpdateList)
+  updateList(
     ctx: StateContext<BookStateModel>,
-    { searchValue }: BookActions.GetList
+    { payload: searchValue }: BookActions.UpdateList
   ) {
     const { page, limit } = ctx.getState();
 
-    this._bookService.getList(searchValue, page, limit).subscribe((result) =>
+    this.bookService.getList(searchValue, page, limit).subscribe((result) =>
       ctx.patchState({
         books: result.items,
         total: result.totalItems,
+        searchString: searchValue,
+        page: 1,
       })
     );
   }
 
-  // @Action(BookActions.GetList)
-  // add(ctx: StateContext<BookStateModel>) {
-  //   const stateModel = ctx.getState();
-  //   stateModel.books = [...stateModel.books, payload];
-  //   ctx.setState(stateModel);
-  // }
+  @Action(BookActions.UpdatePage)
+  updatePage(
+    ctx: StateContext<BookStateModel>,
+    { payload: index }: BookActions.UpdatePage
+  ) {
+    const { limit, searchString } = ctx.getState();
+    const newPage = index + 1;
+
+    this.bookService.getList(searchString, newPage, limit).subscribe((result) =>
+      ctx.patchState({
+        books: result.items,
+        total: result.totalItems,
+        page: newPage,
+      })
+    );
+  }
 }

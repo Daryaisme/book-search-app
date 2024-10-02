@@ -1,0 +1,21 @@
+[tuiTh],
+[tuiTd] {
+  border-inline-start: none;
+  border-inline-end: none;
+  font-family: Inter !important;
+}
+
+[tuiTh] {
+  color: var(--secondary-text-color);
+}
+
+.table__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+button[data-appearance="primary"] {
+  --t-bg: var(--secondary-text-color) !important;
+  background: var(--secondary-text-color) !important;
+}

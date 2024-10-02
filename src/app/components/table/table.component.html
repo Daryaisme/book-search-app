@@ -1,0 +1,60 @@
+@if(!isLoading) {
+<table tuiTable>
+  <thead>
+    <tr>
+      <th tuiTh>Title</th>
+      <th tuiTh>Cover</th>
+      <th tuiTh>Author</th>
+      <th tuiTh>Rating</th>
+      <th tuiTh>Category</th>
+    </tr>
+  </thead>
+
+  <tbody tuiTbody>
+    @for (book of books; track book.id) {
+    <tr>
+      <td tuiTd>
+        {{ book.volumeInfo.title }}
+      </td>
+
+      <td tuiTd>
+        <img
+          [src]="
+            book.volumeInfo.imageLinks?.thumbnail ||
+            '/assets/images/not-found.png'
+          "
+          [alt]="book.volumeInfo.title"
+          width="128"
+        />
+      </td>
+
+      <td tuiTd>
+        @if (book.volumeInfo.authors) {
+        {{ book.volumeInfo.authors.join(", ") }}
+        }
+      </td>
+
+      <td tuiTd>
+        @if (book.volumeInfo.averageRating) {
+        {{ book.volumeInfo.averageRating }}
+        }
+      </td>
+
+      <td tuiTd>
+        @if (book.volumeInfo.categories) {
+        {{ book.volumeInfo.categories.join(", ") }}
+        }
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+
+<tui-pagination
+  [index]="index"
+  [length]="length"
+  (indexChange)="handlePaginationButtonClick($event)"
+/>
+} @else {
+  <tui-loader />
+}

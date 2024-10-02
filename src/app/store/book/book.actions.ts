@@ -1,7 +1,13 @@
 export namespace BookActions {
-  export class GetList {
-    static readonly type = '[Book] GetList';
+  export class UpdateList {
+    static readonly type = '[Book] UpdateList';
 
-    constructor(public searchValue: string) {}
+    constructor(public payload: string) {}
+  }
+
+  export class UpdatePage {
+    static readonly type = '[Pagination] UpdatePage';
+
+    constructor(public payload: number) {}
   }
 }
