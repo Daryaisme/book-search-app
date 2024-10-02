@@ -49,8 +49,8 @@ export class BookState {
 
     this.bookService.getList(searchValue, page, limit).subscribe((result) =>
       ctx.patchState({
-        books: result.items,
-        total: result.totalItems,
+        books: result.docs,
+        total: result.numFound,
         searchString: searchValue,
         page: 1,
       })
@@ -67,8 +67,8 @@ export class BookState {
 
     this.bookService.getList(searchString, newPage, limit).subscribe((result) =>
       ctx.patchState({
-        books: result.items,
-        total: result.totalItems,
+        books: result.docs,
+        total: result.numFound,
         page: newPage,
       })
     );

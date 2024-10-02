@@ -7,7 +7,7 @@ import { BookList } from '../types/book';
   providedIn: 'root',
 })
 export class BookService {
-  private readonly _url = 'https://www.googleapis.com/books/v1/volumes';
+  private readonly _url = 'https://openlibrary.org/';
 
   constructor(private http: HttpClient) {}
 
@@ -17,9 +17,7 @@ export class BookService {
     limit: number
   ): Observable<BookList> {
     return this.http.get<BookList>(
-      `${this._url}?q=${searchValue}&startIndex=${
-        limit * (page - 1)
-      }&maxResults=${limit}`
+      `${this._url}search.json?q=${searchValue}&page=${page}&limit=${limit}`
     );
   }
 }

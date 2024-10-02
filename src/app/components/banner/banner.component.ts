@@ -1,13 +1,13 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngxs/store';
-import { TuiTextfield, TuiTitle } from '@taiga-ui/core';
+import { TuiLoader, TuiTextfield, TuiTitle } from '@taiga-ui/core';
 import { BookActions } from '../../store/book/book.actions';
 
 @Component({
   selector: 'app-banner',
   standalone: true,
-  imports: [TuiTitle, TuiTextfield, FormsModule],
+  imports: [TuiTitle, TuiTextfield, FormsModule, TuiLoader],
   templateUrl: './banner.component.html',
   styleUrl: './banner.component.scss',
 })
@@ -20,7 +20,7 @@ export class BannerComponent {
 
   constructor(private store: Store) {}
 
-  searchValue = '';
+  searchValue: string = '';
 
   handleSearchButtonClick() {
     this.store.dispatch(new BookActions.UpdateList(this.searchValue));
