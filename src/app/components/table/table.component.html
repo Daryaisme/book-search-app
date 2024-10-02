@@ -20,7 +20,11 @@
       <td tuiTd>
         <img
           [src]="
-            '/assets/images/not-found.png'
+            book.cover_edition_key
+              ? 'https://covers.openlibrary.org/b/olid/' +
+                book.cover_edition_key +
+                '-M.jpg'
+              : '/assets/images/not-found.png'
           "
           [alt]="book.title"
           width="128"
@@ -55,5 +59,5 @@
   (indexChange)="handlePaginationButtonClick($event)"
 />
 } @else {
-  <tui-loader />
+<tui-loader />
 }
