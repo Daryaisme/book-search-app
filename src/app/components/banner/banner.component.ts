@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Store } from '@ngxs/store';
 import { TuiLoader, TuiTextfield, TuiTitle } from '@taiga-ui/core';
+import { Store } from '@ngxs/store';
 import { BookActions } from '../../store/book/book.actions';
 
 @Component({
@@ -12,17 +12,16 @@ import { BookActions } from '../../store/book/book.actions';
   styleUrl: './banner.component.scss',
 })
 export class BannerComponent {
-  @Input({ required: true }) heading!: string;
-  @Input({ required: true }) subtitle!: string;
-  @Input({ required: true }) imgUrl!: string;
-  @Input() isSearchable = false;
-  @Input() placeholder = '';
-
-  constructor(private store: Store) {}
+  @Input() isLoading: boolean = false;
+  @Output() changeLoadingStatusEvent = new EventEmitter<boolean>();
 
   searchValue: string = '';
 
+  constructor(private store: Store) {}
+
   handleSearchButtonClick() {
+    this.changeLoadingStatusEvent.emit(true);
+
     this.store.dispatch(new BookActions.UpdateList(this.searchValue));
   }
 }

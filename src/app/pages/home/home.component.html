@@ -1,23 +1,17 @@
 <div>
-  <app-banner
-    heading="BookLab — Your Guide to the Literary World!"
-    subtitle="Discover, explore, and find your next favorite book with ease!"
-    imgUrl="/assets/images/banner.jpg"
-    [isSearchable]="true"
-    placeholder="Find your next favorite book..."
-  />
+  <app-banner [isLoading]="isLoading" (changeLoadingStatusEvent)="updateLoadingStatus($event)" />
 
   <div class="container">
-    @if (totalCount) {
-    <app-table class="table__wrapper" />
+    @if (!isLoading) {
+    <app-table
+      [books]="books"
+      [length]="length"
+      [index]="index"
+      (changeLoadingStatusEvent)="updateLoadingStatus($event)"
+      class="table__wrapper"
+    />
     } @else {
-    <tui-block-status>
-      <img src="/assets/images/no-results.png" alt="not found" tuiSlot="top" />
-
-      <h4 class="notFound__text">Not found</h4>
-
-      Try to find something using input
-    </tui-block-status>
+    <tui-loader />
     }
   </div>
 </div>

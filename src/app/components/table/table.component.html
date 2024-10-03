@@ -1,4 +1,4 @@
-@if(!isLoading) {
+@if(books.length > 0) {
 <table tuiTable>
   <thead>
     <tr>
@@ -53,11 +53,18 @@
   </tbody>
 </table>
 
+@if (length > 1) {
 <tui-pagination
   [index]="index"
   [length]="length"
   (indexChange)="handlePaginationButtonClick($event)"
 />
-} @else {
-<tui-loader />
+} } @else {
+<tui-block-status>
+  <img src="/assets/images/no-results.png" alt="not found" tuiSlot="top" />
+
+  <h4 class="notFound__text">Not found</h4>
+
+  Try to find something using input
+</tui-block-status>
 }

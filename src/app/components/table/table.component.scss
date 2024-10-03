@@ -15,7 +15,6 @@
   gap: 20px;
 }
 
-button[data-appearance="primary"] {
-  --t-bg: var(--secondary-text-color) !important;
-  background: var(--secondary-text-color) !important;
+.notFound__text {
+  color: var(--secondary-text-color);
 }

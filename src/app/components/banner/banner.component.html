@@ -1,22 +1,30 @@
-<div class="banner__wrapper" [style.background-image]="'url(' + imgUrl + ')'">
+<div class="banner__wrapper">
   <div class="container">
     <h2 tuiTitle="l">
-      {{ heading }}
+      BookLab — Your Guide to the Literary World!
 
-      <div tuiSubtitle>{{ subtitle }}</div>
+      <div tuiSubtitle>
+        Discover, explore, and find your next favorite book with ease!
+      </div>
 
-      @if (isSearchable) {
       <tui-textfield iconStart="@tui.search" class="searchInput__wrapper">
         <input
-          [placeholder]="placeholder"
+          placeholder="Find your next favorite book..."
           tuiTextfield
           class="searchInput inp"
           [(ngModel)]="searchValue"
         />
 
-        <button [disabled]="searchValue.length === 0" size="s" tuiButton class="btn" (click)="handleSearchButtonClick()">Search</button>
+        <button
+          [disabled]="searchValue.length === 0 || isLoading"
+          size="s"
+          tuiButton
+          class="btn"
+          (click)="handleSearchButtonClick()"
+        >
+          Search
+        </button>
       </tui-textfield>
-      }
     </h2>
   </div>
 </div>
