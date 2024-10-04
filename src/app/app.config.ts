@@ -7,13 +7,14 @@ import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideStore } from '@ngxs/store';
 import { BookState } from './store/book/book.state';
+import { SelectedBookState } from './store/selected-book/selected-book.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     NG_EVENT_PLUGINS,
     provideHttpClient(),
-    provideStore([BookState]),
+    provideStore([BookState, SelectedBookState]),
     provideAnimations(),
   ],
 };

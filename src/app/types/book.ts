@@ -6,13 +6,13 @@ export interface Book {
   cover_edition_key?: string;
   ratings_average?: number;
   ratings_count?: number;
-  language?: string[];
   number_of_pages_median?: number;
 }
 
-export interface BookDetailed {
+export interface DetailedBook {
   title: string;
-  description: string;
+  subtitle?: string;
+  first_publish_date?: string;
   subjects?: string[];
   subject_places?: string[];
   subject_people?: string[];

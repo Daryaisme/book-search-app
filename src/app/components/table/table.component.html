@@ -12,7 +12,7 @@
 
   <tbody tuiTbody>
     @for (book of books; track book.key) {
-    <tr>
+    <tr (click)="handleBookCardClick(book.key)" class="table__tr">
       <td tuiTd>
         {{ book.title }}
       </td>
@@ -68,3 +68,5 @@
   Try to find something using input
 </tui-block-status>
 }
+
+<ng-template #dialogTemplate><app-modal /></ng-template>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { BookActions } from './book.actions';
-import { Book } from '../../types/book';
 import { BookService } from '../../services/book.service';
+import { Book } from '../../types/book';
 
 export interface BookStateModel {
   books: Book[];
@@ -33,13 +33,6 @@ export class BookState {
     return { books: state.books, total: state.total, page: state.page };
   }
 
-  @Selector()
-  static getTotalCount(state: BookStateModel) {
-    console.log('Current state total:', state.total);
-
-    return state.total;
-  }
-
   @Action(BookActions.UpdateList)
   updateList(
     ctx: StateContext<BookStateModel>,
@@ -47,10 +40,10 @@ export class BookState {
   ) {
     const { page, limit } = ctx.getState();
 
-    this.bookService.getList(searchValue, page, limit).subscribe((result) =>
+    this.bookService.getList(searchValue, page, limit).subscribe((results) =>
       ctx.patchState({
-        books: result.docs,
-        total: result.numFound,
+        books: results.docs,
+        total: results.numFound,
         searchString: searchValue,
         page: 1,
       })
@@ -65,10 +58,10 @@ export class BookState {
     const { limit, searchString } = ctx.getState();
     const newPage = index + 1;
 
-    this.bookService.getList(searchString, newPage, limit).subscribe((result) =>
+    this.bookService.getList(searchString, newPage, limit).subscribe((results) =>
       ctx.patchState({
-        books: result.docs,
-        total: result.numFound,
+        books: results.docs,
+        total: results.numFound,
         page: newPage,
       })
     );

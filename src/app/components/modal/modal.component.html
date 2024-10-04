@@ -1,0 +1,42 @@
+@if(!isLoading) {
+<div tuiCardLarge tuiSurface="elevated" class="book__wrapper">
+  <header tuiHeader>
+    <h2 tuiTitle="m">{{ book.title }}</h2>
+
+    @if(book.subtitle) {
+    <div tuiSubtitle>{{ book.subtitle }}</div>
+    }
+  </header>
+
+  <div class="book__description">
+    @if (book.first_publish_date) {
+    <div>
+      <span class="book__description-title">First publish date</span>:
+      {{ book.first_publish_date }}
+    </div>
+    } @if (book.subjects) {
+    <div>
+      <span class="book__description-title">Subjects</span>:
+      {{ book.subjects.join(", ") }}
+    </div>
+    } @if (book.subject_places) {
+    <div>
+      <span class="book__description-title">Subject places</span>:
+      {{ book.subject_places.join(", ") }}
+    </div>
+    } @if (book.subject_people) {
+    <div>
+      <span class="book__description-title">Subject people</span>:
+      {{ book.subject_people.join(", ") }}
+    </div>
+    } @if (book.subject_times) {
+    <div>
+      <span class="book__description-title">Subject times</span>:
+      {{ book.subject_times.join(", ") }}
+    </div>
+    }
+  </div>
+</div>
+} @else {
+<tui-loader />
+}

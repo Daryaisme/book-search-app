@@ -1,0 +1,14 @@
+.book__description {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.book__description-title {
+  color: var(--secondary-text-color);
+  font-weight: 700;
+}
+
+.book__wrapper {
+  padding: 0 !important;
+}

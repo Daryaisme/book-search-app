@@ -9,12 +9,10 @@
   color: var(--secondary-text-color);
 }
 
-.table__wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
 .notFound__text {
   color: var(--secondary-text-color);
+}
+
+.table__tr {
+  cursor: pointer;
 }
