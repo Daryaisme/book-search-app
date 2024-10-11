@@ -1,38 +1,38 @@
-@if(!isLoading) {
+@if(!isBookLoading()) {
 <div tuiCardLarge tuiSurface="elevated" class="book__wrapper">
   <header tuiHeader>
-    <h2 tuiTitle="m">{{ book.title }}</h2>
+    <h2 tuiTitle="m">{{ book().title }}</h2>
 
-    @if(book.subtitle) {
-    <div tuiSubtitle>{{ book.subtitle }}</div>
+    @if(book().subtitle) {
+    <div tuiSubtitle>{{ book().subtitle }}</div>
     }
   </header>
 
   <div class="book__description">
-    @if (book.first_publish_date) {
+    @if (book().first_publish_date) {
     <div>
       <span class="book__description-title">First publish date</span>:
-      {{ book.first_publish_date }}
+      {{ book().first_publish_date }}
     </div>
-    } @if (book.subjects) {
+    } @if (book().subjects) {
     <div>
       <span class="book__description-title">Subjects</span>:
-      {{ book.subjects.join(", ") }}
+      {{ book().subjects?.join(", ") }}
     </div>
-    } @if (book.subject_places) {
+    } @if (book().subject_places) {
     <div>
       <span class="book__description-title">Subject places</span>:
-      {{ book.subject_places.join(", ") }}
+      {{ book().subject_places?.join(", ") }}
     </div>
-    } @if (book.subject_people) {
+    } @if (book().subject_people) {
     <div>
       <span class="book__description-title">Subject people</span>:
-      {{ book.subject_people.join(", ") }}
+      {{ book().subject_people?.join(", ") }}
     </div>
-    } @if (book.subject_times) {
+    } @if (book().subject_times) {
     <div>
       <span class="book__description-title">Subject times</span>:
-      {{ book.subject_times.join(", ") }}
+      {{ book().subject_times?.join(", ") }}
     </div>
     }
   </div>

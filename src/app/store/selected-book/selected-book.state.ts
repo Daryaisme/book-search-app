@@ -24,7 +24,12 @@ export class SelectedBookState {
 
   @Selector()
   static getBook(state: SelectedBookStateModel) {
-    return { book: state.book, isLoading: state.isLoading };
+    return state.book;
+  }
+
+  @Selector()
+  static getBookLoadingStatus(state: SelectedBookStateModel) {
+    return state.isLoading;
   }
 
   @Action(SelectedBookActions.UpdateKey)

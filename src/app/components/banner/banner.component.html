@@ -1,17 +1,17 @@
 <div class="banner__wrapper">
   <div class="container">
     <h2 tuiTitle="l">
-      BookLab — Your Guide to the Literary World!
+      {{ heading }}
 
       <div tuiSubtitle>
-        Discover, explore, and find your next favorite book with ease!
+        {{ subheading }}
       </div>
 
       <tui-textfield iconStart="@tui.search" class="searchInput__wrapper">
         <input
           tuiTextfield
           [formControl]="searchValue"
-          placeholder="Find your next favorite book..."
+          [placeholder]="placeholder"
           class="searchInput inp"
         />
       </tui-textfield>

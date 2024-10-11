@@ -1,13 +1,17 @@
 <div>
-  <app-banner [isLoading]="isLoading" (changeLoadingStatusEvent)="updateLoadingStatus($event)" />
+  <app-banner
+    heading="BookLab — Your Guide to the Literary World!"
+    subheading="Discover, explore, and find your next favorite book with ease!"
+    placeholder="Find your next favorite book..."
+    (changeSearchValue)="onBookSearchChange($event)"
+  />
 
   <div class="container">
-    @if (!isLoading) {
+    @if (!isBooksLoading()) {
     <app-table
-      [books]="books"
-      [length]="length"
-      [index]="index"
-      (changeLoadingStatusEvent)="updateLoadingStatus($event)"
+      [books]="books()"
+      [length]="totalPages"
+      [index]="currentPage() - 1"
       class="table__wrapper"
     />
     } @else {

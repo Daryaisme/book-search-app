@@ -10,6 +10,7 @@ export interface BookStateModel {
   searchString: string;
   page: number;
   limit: number;
+  isLoading: boolean;
 }
 
 @State<BookStateModel>({
@@ -20,6 +21,7 @@ export interface BookStateModel {
     searchString: '',
     page: 1,
     limit: 10,
+    isLoading: false,
   },
 })
 @Injectable()
@@ -28,9 +30,22 @@ export class BookState {
 
   @Selector()
   static getBooks(state: BookStateModel) {
-    console.log('Current state:', state);
+    return state.books;
+  }
 
-    return { books: state.books, total: state.total, page: state.page };
+  @Selector()
+  static getTotalBooksCount(state: BookStateModel) {
+    return state.total;
+  }
+
+  @Selector()
+  static getCurrentPage(state: BookStateModel) {
+    return state.page;
+  }
+
+  @Selector()
+  static getBooksLoadingStatus(state: BookStateModel) {
+    return state.isLoading;
   }
 
   @Action(BookActions.UpdateList)
@@ -40,12 +55,15 @@ export class BookState {
   ) {
     const { page, limit } = ctx.getState();
 
+    ctx.patchState({ isLoading: true });
+
     this.bookService.getList(searchValue, page, limit).subscribe((results) =>
       ctx.patchState({
         books: results.docs,
         total: results.numFound,
         searchString: searchValue,
         page: 1,
+        isLoading: false,
       })
     );
   }
@@ -58,12 +76,17 @@ export class BookState {
     const { limit, searchString } = ctx.getState();
     const newPage = index + 1;
 
-    this.bookService.getList(searchString, newPage, limit).subscribe((results) =>
-      ctx.patchState({
-        books: results.docs,
-        total: results.numFound,
-        page: newPage,
-      })
-    );
+    ctx.patchState({ isLoading: true });
+
+    this.bookService
+      .getList(searchString, newPage, limit)
+      .subscribe((results) =>
+        ctx.patchState({
+          books: results.docs,
+          total: results.numFound,
+          page: newPage,
+          isLoading: false,
+        })
+      );
   }
 }
