@@ -23,7 +23,7 @@ export class TableComponent {
   @Input() length!: number;
   @Input() index!: number;
 
-  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
+  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<PolymorpheusContent>;
 
   constructor(private store: Store, private dialogs: TuiDialogService) {}
 

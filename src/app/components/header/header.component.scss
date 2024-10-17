@@ -4,6 +4,10 @@
 
 .header__wrapper {
   margin: 21px 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .logo {

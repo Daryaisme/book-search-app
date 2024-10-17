@@ -1,0 +1,21 @@
+<div class="container">
+	<form [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit()" class="form">
+		<h2 class="form__header">Log in</h2>
+
+		<tui-textfield>
+			<label tuiLabel for="username">Login</label>
+			<input id="username" tuiTextfield placeholder="Enter your login..." formControlName="username"/>
+		</tui-textfield>
+
+		<tui-textfield>
+			<label tuiLabel for="password">Password</label>
+			<input id="password" tuiTextfield placeholder="Enter your password..." type="password"
+				   formControlName="password"/>
+			<tui-icon tuiPassword/>
+		</tui-textfield>
+
+		<button tuiButton size="m" class="form__button">Log in</button>
+
+		<div>Dont have an account? <a [routerLink]="['/signup']">Sign up</a></div>
+	</form>
+</div>

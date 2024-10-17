@@ -1,0 +1,38 @@
+<div class="container">
+	<form [formGroup]="signupForm" (ngSubmit)="onSignupFormSubmit()" class="form">
+		<h2 class="form__header">Sign up</h2>
+
+		<div>
+			<tui-textfield>
+				<label tuiLabel for="userName">Login</label>
+				<input id="userName" tuiTextfield placeholder="Enter your login..." formControlName="userName"/>
+			</tui-textfield>
+			<tui-error formControlName="userName" [error]="userNameError"/>
+		</div>
+
+		<div>
+			<tui-textfield>
+				<label tuiLabel for="password">Password</label>
+				<input id="password" tuiTextfield placeholder="Enter your password..." type="password"
+					   formControlName="password"/>
+				<tui-icon tuiPassword/>
+			</tui-textfield>
+			<tui-error formControlName="password" [error]="passwordError"/>
+		</div>
+
+		<div>
+			<tui-textfield>
+				<label tuiLabel for="repeatPassword">Repeat Password</label>
+				<input id="repeatPassword" tuiTextfield placeholder="Repeat your password..." type="password"
+					   formControlName="repeatPassword"/>
+				<tui-icon tuiPassword/>
+			</tui-textfield>
+
+			<tui-error formControlName="repeatPassword" [error]="repeatPasswordError"/>
+		</div>
+
+		<button tuiButton size="m" class="form__button">Sign up</button>
+
+		<div>Already have an account? <a [routerLink]="['/login']">Log in</a></div>
+	</form>
+</div>

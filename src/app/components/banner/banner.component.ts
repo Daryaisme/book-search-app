@@ -1,21 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { TuiTextfield, TuiTitle } from '@taiga-ui/core';
+import { TuiTextfieldComponent, TuiTextfieldDirective, TuiTitle } from '@taiga-ui/core';
 import { debounceTime, tap } from 'rxjs';
 
 @Component({
   selector: 'app-banner',
   standalone: true,
-  imports: [TuiTitle, TuiTextfield, ReactiveFormsModule],
+  imports: [TuiTitle, ReactiveFormsModule, TuiTextfieldComponent, TuiTextfieldDirective],
   templateUrl: './banner.component.html',
   styleUrl: './banner.component.scss',
 })
 export class BannerComponent {
-  @Input() heading: string = '';
-  @Input() subheading: string = '';
-  @Input() placeholder: string = '';
+  @Input() heading = '';
+  @Input() subheading = '';
+  @Input() placeholder = '';
   @Output() changeSearchValue = new EventEmitter<string>();
-  searchValue: FormControl<string> = new FormControl('', { nonNullable: true });
+  searchValue = new FormControl<string>('', { nonNullable: true });
 
   constructor() {
     this.searchValue.valueChanges
