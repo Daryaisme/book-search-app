@@ -1,9 +1,10 @@
-import { CanActivateFn } from '@angular/router';
-import { inject } from "@angular/core";
-import { AuthService } from "../../services/auth.service";
+import { inject } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { AuthState } from '../../store/auth/auth.state';
 
-export const authGuard: CanActivateFn = () => {
-  const authService = inject(AuthService);
+export const authGuard = (): Observable<boolean> => {
+	const store = inject(Store);
 
-  return authService.isLoggedIn;
+	return store.select(AuthState.getAuthStatus);
 };

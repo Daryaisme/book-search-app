@@ -7,11 +7,11 @@ import {
 	Validators
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
 import { TuiButton, TuiError, TuiIcon, TuiLabel, TuiTextfieldComponent, TuiTextfieldDirective } from '@taiga-ui/core';
 import { TuiFieldErrorPipe, TuiPassword } from '@taiga-ui/kit';
+import { TuiValidationError } from '@taiga-ui/cdk';
 import { AuthService } from '../../services/auth.service';
-import { AsyncPipe } from '@angular/common';
-import { tuiMarkControlAsTouchedAndValidate, TuiValidationError } from '@taiga-ui/cdk';
 import { unambiguousPasswordValidator } from '../../utils/validators/unambiguous-password.validator';
 
 @Component({
@@ -49,8 +49,8 @@ export class SignupComponent implements OnInit {
 
 	onSignupFormSubmit() {
 		if (this.signupForm.valid) {
-			this.authService.login();
-			this.router.navigateByUrl('/home');
+			// this.authService.login();
+			this.router.navigateByUrl('/work-place/home');
 		}
 	}
 
@@ -58,9 +58,6 @@ export class SignupComponent implements OnInit {
 		this.signupForm
 			.statusChanges
 			.subscribe(() => {
-				console.log('change')
-				// tuiMarkControlAsTouchedAndValidate(this.signupForm);
-
 				this.setUserNameError(this.signupForm.controls.userName.errors);
 				this.setPasswordError(this.signupForm.controls.password.errors);
 				this.setRepeatPasswordError(this.signupForm.controls.repeatPassword.errors);
@@ -92,8 +89,6 @@ export class SignupComponent implements OnInit {
 	}
 
 	setRepeatPasswordError(errors: ValidationErrors | null) {
-		console.log('repeatPasswordErrors: ', errors);
-
 		if (errors?.['required']) {
 			this.repeatPasswordError = new TuiValidationError('Поле обязательно')
 		} else if (this.signupForm.errors?.['unambiguousPassword']) {

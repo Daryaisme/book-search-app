@@ -5,46 +5,47 @@ import { BookService } from '../../services/book.service';
 import { DetailedBook } from '../../types/book';
 
 export interface SelectedBookStateModel {
-  key: string;
-  book: DetailedBook;
-  isLoading: boolean;
+	key: string;
+	book: DetailedBook;
+	isLoading: boolean;
 }
 
 @State<SelectedBookStateModel>({
-  name: 'selectedBook',
-  defaults: {
-    key: '',
-    book: {} as DetailedBook,
-    isLoading: false,
-  },
+	name: 'selectedBook',
+	defaults: {
+		key: '',
+		book: {} as DetailedBook,
+		isLoading: false,
+	},
 })
 @Injectable()
 export class SelectedBookState {
-  constructor(private bookService: BookService) {}
+	constructor(private bookService: BookService) {
+	}
 
-  @Selector()
-  static getBook(state: SelectedBookStateModel) {
-    return state.book;
-  }
+	@Selector()
+	static getBook(state: SelectedBookStateModel) {
+		return state.book;
+	}
 
-  @Selector()
-  static getBookLoadingStatus(state: SelectedBookStateModel) {
-    return state.isLoading;
-  }
+	@Selector()
+	static getBookLoadingStatus(state: SelectedBookStateModel) {
+		return state.isLoading;
+	}
 
-  @Action(SelectedBookActions.UpdateKey)
-  updateKey(
-    ctx: StateContext<SelectedBookStateModel>,
-    { payload: newKey }: SelectedBookActions.UpdateKey
-  ) {
-    const { key } = ctx.getState();
+	@Action(SelectedBookActions.UpdateKey)
+	updateKey(
+		ctx: StateContext<SelectedBookStateModel>,
+		{ payload: newKey }: SelectedBookActions.UpdateKey
+	) {
+		const { key } = ctx.getState();
 
-    if (key !== newKey) {
-      ctx.patchState({ isLoading: true });
+		if (key !== newKey) {
+			ctx.patchState({ isLoading: true });
 
-      this.bookService.get(newKey).subscribe((results) => {
-        ctx.patchState({ key: newKey, book: results, isLoading: false });
-      });
-    }
-  }
+			this.bookService.get(newKey).subscribe((results) => {
+				ctx.patchState({ key: newKey, book: results, isLoading: false });
+			});
+		}
+	}
 }
