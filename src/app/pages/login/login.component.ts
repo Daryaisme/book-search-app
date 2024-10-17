@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
+	TuiAlertService,
 	TuiButton,
 	TuiIcon,
 	TuiLabel,
@@ -8,10 +9,11 @@ import {
 	TuiTextfieldComponent,
 	TuiTextfieldDirective, TuiTitle
 } from '@taiga-ui/core';
+import { Router, RouterLink } from '@angular/router';
 import { TuiPassword } from '@taiga-ui/kit';
 import { AuthService } from '../../services/auth.service';
-import { Router, RouterLink } from '@angular/router';
 import { User } from '../../types/user';
+import { showNotification } from '../../utils/helpers/notification.helper';
 
 @Component({
 	selector: 'app-login',
@@ -37,7 +39,11 @@ export class LoginComponent {
 		password: new FormControl('', [ Validators.required ]),
 	})
 
-	constructor(private authService: AuthService, private router: Router) {
+	constructor(
+		private authService: AuthService,
+		private router: Router,
+		private alerts: TuiAlertService
+	) {
 	}
 
 	onLoginFormSubmit() {
@@ -51,6 +57,6 @@ export class LoginComponent {
 
 			this.authService.login(user);
 			this.router.navigateByUrl('/work-place/home');
-		}
+		} else showNotification(this.alerts, 'Check your login and password', 'Error!')
 	}
 }

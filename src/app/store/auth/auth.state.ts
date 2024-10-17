@@ -11,8 +11,8 @@ export interface AuthStateModel {
 @State<AuthStateModel>({
 	name: 'auth',
 	defaults: {
-		userName: localStorage.getItem('username') || null,
-		sessionToken: localStorage.getItem('sessionToken') || null,
+		userName: localStorage.getItem('username'),
+		sessionToken: localStorage.getItem('sessionToken'),
 	},
 })
 @Injectable()
@@ -40,7 +40,7 @@ export class AuthState {
 		ctx: StateContext<AuthStateModel>,
 		{ payload: userName }: AuthActions.LogIn
 	) {
-		ctx.setState({ userName: userName, sessionToken: '1' });
+		ctx.setState({ userName: userName, sessionToken: Date.now().toString() });
 	}
 
 	@Action(AuthActions.LogOut)

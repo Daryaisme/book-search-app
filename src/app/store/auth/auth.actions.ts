@@ -1,3 +1,5 @@
+import { User } from '../../types/user';
+
 export namespace AuthActions {
   export class LogIn {
     static readonly type = '[Auth] Log in';

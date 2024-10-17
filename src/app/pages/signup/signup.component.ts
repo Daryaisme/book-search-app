@@ -8,11 +8,21 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
-import { TuiButton, TuiError, TuiIcon, TuiLabel, TuiTextfieldComponent, TuiTextfieldDirective } from '@taiga-ui/core';
+import {
+	TuiAlertService,
+	TuiButton,
+	TuiError,
+	TuiIcon,
+	TuiLabel,
+	TuiTextfieldComponent,
+	TuiTextfieldDirective
+} from '@taiga-ui/core';
 import { TuiFieldErrorPipe, TuiPassword } from '@taiga-ui/kit';
 import { TuiValidationError } from '@taiga-ui/cdk';
 import { AuthService } from '../../services/auth.service';
 import { unambiguousPasswordValidator } from '../../utils/validators/unambiguous-password.validator';
+import { User } from '../../types/user';
+import { showNotification } from '../../utils/helpers/notification.helper';
 
 @Component({
 	selector: 'app-signup',
@@ -44,14 +54,24 @@ export class SignupComponent implements OnInit {
 		repeatPassword: new FormControl('', Validators.required),
 	}, unambiguousPasswordValidator);
 
-	constructor(private authService: AuthService, private router: Router) {
+	constructor(
+		private authService: AuthService,
+		private router: Router,
+		private alerts: TuiAlertService
+	) {
 	}
 
 	onSignupFormSubmit() {
 		if (this.signupForm.valid) {
-			// this.authService.login();
-			this.router.navigateByUrl('/work-place/home');
-		}
+			const { userName, password } = this.signupForm.controls;
+
+			const user: User = {
+				userName: userName.value || '',
+				password: password.value || ''
+			}
+
+			if (this.authService.signup(user)) this.router.navigateByUrl('/auth/login');
+		} else showNotification(this.alerts, 'Incorrect form data', 'Error!')
 	}
 
 	ngOnInit(): void {
