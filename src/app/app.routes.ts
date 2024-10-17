@@ -5,10 +5,12 @@ import { HomeComponent } from './pages/home/home.component';
 import { authGuard } from './utils/guards/auth.guard';
 import { UnauthorizedLayoutComponent } from './components/layouts/unauthorized-layout/unauthorized-layout.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
+	{ path: '', redirectTo: 'auth/login', pathMatch: 'full' },
 	{
-		path: '',
+		path: 'auth',
 		component: UnauthorizedLayoutComponent,
 		children: [
 			{ path: 'login', component: LoginComponent },
@@ -20,8 +22,8 @@ export const routes: Routes = [
 		component: AuthorizedLayoutComponent,
 		children: [
 			{ path: 'home', component: HomeComponent },
+			{ path: '**', component: NotFoundComponent }
 		],
 		canActivate: [ authGuard ],
 	},
-	{ path: '', redirectTo: 'login', pathMatch: 'full' },
 ];

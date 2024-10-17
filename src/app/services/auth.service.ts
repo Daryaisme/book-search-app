@@ -24,10 +24,18 @@ export class AuthService {
 	login(user: User) {
 		const isUserSignedUp = users.some(el => JSON.stringify(el) === JSON.stringify(user));
 
-		if (isUserSignedUp) this.store.dispatch(new AuthActions.LogIn(user.userName));
+		if (isUserSignedUp) {
+			localStorage.setItem('username', user.userName);
+			localStorage.setItem('sessionToken', '1');
+
+			this.store.dispatch(new AuthActions.LogIn(user.userName));
+		}
 	}
 
 	logout() {
+		localStorage.removeItem('username');
+		localStorage.removeItem('sessionToken');
+
 		this.store.dispatch(new AuthActions.LogOut())
 	}
 }

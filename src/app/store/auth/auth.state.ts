@@ -11,8 +11,8 @@ export interface AuthStateModel {
 @State<AuthStateModel>({
 	name: 'auth',
 	defaults: {
-		userName: null,
-		sessionToken: null,
+		userName: localStorage.getItem('username') || null,
+		sessionToken: localStorage.getItem('sessionToken') || null,
 	},
 })
 @Injectable()

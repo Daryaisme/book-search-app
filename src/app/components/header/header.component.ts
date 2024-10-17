@@ -17,6 +17,6 @@ export class HeaderComponent {
 	handleLogoutButtonClick() {
 		this.authService.logout();
 
-		this.router.navigateByUrl('/login');
+		this.router.navigateByUrl('/auth/login');
 	}
 }
