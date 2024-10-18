@@ -7,7 +7,7 @@
 				<label tuiLabel for="userName">Login</label>
 				<input id="userName" tuiTextfield placeholder="Enter your login..." formControlName="userName"/>
 			</tui-textfield>
-			<tui-error formControlName="userName" [error]="userNameError"/>
+			<tui-error [error]="userNameError"/>
 		</div>
 
 		<div>
@@ -17,7 +17,7 @@
 					   formControlName="password"/>
 				<tui-icon tuiPassword/>
 			</tui-textfield>
-			<tui-error formControlName="password" [error]="passwordError"/>
+			<tui-error [error]="passwordError"/>
 		</div>
 
 		<div>
@@ -27,8 +27,7 @@
 					   formControlName="repeatPassword"/>
 				<tui-icon tuiPassword/>
 			</tui-textfield>
-
-			<tui-error formControlName="repeatPassword" [error]="repeatPasswordError"/>
+			<tui-error [error]="repeatPasswordError"/>
 		</div>
 
 		<button tuiButton size="m" class="form__button">Sign up</button>

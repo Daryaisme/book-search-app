@@ -31,7 +31,7 @@ export class AuthService {
 
 			this.store.dispatch(new AuthActions.SetUser({
 				userName: registeredUser.userName,
-				sessionToken: registeredUser.sessionToken ?? ''
+				sessionToken: registeredUser.sessionToken ?? '',
 			}));
 		} else showNotification(this.alerts, 'Check your login and password', 'Error!')
 	}
@@ -40,10 +40,16 @@ export class AuthService {
 		const isUserSignedUp = this.users.some(el => el.userName === user.userName);
 
 		if (!isUserSignedUp) {
-			const updatedUsers = [ ...this.users, { ...user, sessionToken: Date.now().toString() } ]
+			const sessionToken = Date.now().toString();
+			const updatedUsers = [ ...this.users, { ...user, sessionToken } ]
 
 			this.users = updatedUsers;
 			localStorage.setItem('users', JSON.stringify(updatedUsers));
+
+			this.store.dispatch(new AuthActions.SetUser({
+				userName: user.userName,
+				sessionToken: sessionToken,
+			}));
 
 			return true;
 		} else {

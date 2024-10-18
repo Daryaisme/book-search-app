@@ -7,7 +7,6 @@ import {
 	Validators
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
 import {
 	TuiAlertService,
 	TuiButton,
@@ -17,8 +16,8 @@ import {
 	TuiTextfieldComponent,
 	TuiTextfieldDirective
 } from '@taiga-ui/core';
-import { TuiFieldErrorPipe, TuiPassword } from '@taiga-ui/kit';
-import { TuiValidationError } from '@taiga-ui/cdk';
+import { TuiPassword } from '@taiga-ui/kit';
+import { tuiMarkControlAsTouchedAndValidate, TuiValidationError } from '@taiga-ui/cdk';
 import { AuthService } from '../../services/auth.service';
 import { unambiguousPasswordValidator } from '../../utils/validators/unambiguous-password.validator';
 import { User } from '../../types/user';
@@ -37,8 +36,6 @@ import { showNotification } from '../../utils/helpers/notification.helper';
 		TuiTextfieldDirective,
 		RouterLink,
 		TuiError,
-		TuiFieldErrorPipe,
-		AsyncPipe
 	],
 	templateUrl: './signup.component.html',
 	styleUrl: './signup.component.scss',
@@ -62,6 +59,8 @@ export class SignupComponent implements OnInit {
 	}
 
 	onSignupFormSubmit() {
+		tuiMarkControlAsTouchedAndValidate(this.signupForm);
+
 		if (this.signupForm.valid) {
 			const { userName, password } = this.signupForm.controls;
 
@@ -70,7 +69,7 @@ export class SignupComponent implements OnInit {
 				password: password.value || ''
 			}
 
-			if (this.authService.signup(user)) this.router.navigateByUrl('/auth/login');
+			if (this.authService.signup(user)) this.router.navigateByUrl('/work-place/home');
 		} else showNotification(this.alerts, 'Incorrect form data', 'Error!')
 	}
 

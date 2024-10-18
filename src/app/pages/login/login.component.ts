@@ -7,13 +7,15 @@ import {
 	TuiLabel,
 	TuiTextfield,
 	TuiTextfieldComponent,
-	TuiTextfieldDirective, TuiTitle
+	TuiTextfieldDirective,
+	TuiTitle
 } from '@taiga-ui/core';
 import { Router, RouterLink } from '@angular/router';
 import { TuiPassword } from '@taiga-ui/kit';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../types/user';
 import { showNotification } from '../../utils/helpers/notification.helper';
+import { tuiMarkControlAsTouchedAndValidate } from '@taiga-ui/cdk';
 
 @Component({
 	selector: 'app-login',
@@ -47,6 +49,8 @@ export class LoginComponent {
 	}
 
 	onLoginFormSubmit() {
+		tuiMarkControlAsTouchedAndValidate(this.loginForm);
+
 		if (this.loginForm.valid) {
 			const { userName, password } = this.loginForm.controls;
 
