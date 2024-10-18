@@ -1,13 +1,12 @@
-import { User } from '../../types/user';
-
 export namespace AuthActions {
-  export class LogIn {
-    static readonly type = '[Auth] Log in';
+	export class SetUser {
+		static readonly type = '[Auth] Set user';
 
-    constructor(public payload: string) {}
-  }
+		constructor(public payload: { userName: string | null, sessionToken: string | null }) {
+		}
+	}
 
-  export class LogOut {
-    static readonly type = '[Auth] Log out';
-  }
+	export class LogOut {
+		static readonly type = '[Auth] Log out';
+	}
 }

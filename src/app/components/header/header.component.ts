@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TuiHeader } from '@taiga-ui/layout';
 import { TuiButton, TuiTitle } from '@taiga-ui/core';
 import { AuthService } from '../../services/auth.service';
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 	styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+	@Input() userName!: string | null;
+
 	constructor(private authService: AuthService, private router: Router) {}
 
 	handleLogoutButtonClick() {

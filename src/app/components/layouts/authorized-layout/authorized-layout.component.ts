@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../header/header.component';
 import { RouterOutlet } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { AuthState } from '../../../store/auth/auth.state';
 
 @Component({
 	selector: 'app-authorized-layout',
@@ -9,4 +11,9 @@ import { RouterOutlet } from '@angular/router';
 	templateUrl: './authorized-layout.component.html',
 	styleUrl: './authorized-layout.component.scss'
 })
-export class AuthorizedLayoutComponent {}
+export class AuthorizedLayoutComponent {
+	userName = this.store.selectSignal(AuthState.getUserName);
+
+	constructor(private store: Store) {
+	}
+}

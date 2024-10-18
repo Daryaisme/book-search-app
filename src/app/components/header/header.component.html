@@ -5,6 +5,8 @@
 			<h5 tuiTitle class="logo__title">BookLab</h5>
 		</div>
 
-		<button tuiButton size="s" data-variant="text" class="btn" (click)="handleLogoutButtonClick()">Log out</button>
+		<div class="header__greeting">Hello, <b>{{ userName ?? 'user' }}</b>!</div>
+		<button tuiButton size="s" data-variant="text" class="btn" (click)="handleLogoutButtonClick()">Log out
+		</button>
 	</div>
 </div>
