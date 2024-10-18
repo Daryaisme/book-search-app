@@ -1,43 +1,56 @@
-import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, TemplateRef, ViewChild } from '@angular/core';
 import { TuiDialogService, tuiFadeIn } from '@taiga-ui/core';
-import { TuiPagination } from '@taiga-ui/kit';
-import { TuiTable } from '@taiga-ui/addon-table';
-import { TuiBlockStatus } from '@taiga-ui/layout';
 import type { PolymorpheusContent } from '@taiga-ui/polymorpheus';
+import { TuiTableDirective, TuiTableTbody, TuiTableTd, TuiTableTh } from '@taiga-ui/addon-table';
+import { TuiPagination } from '@taiga-ui/kit';
+import { TuiBlockStatusComponent, TuiBlockStatusDirective } from '@taiga-ui/layout';
 import { Store } from '@ngxs/store';
-import { ModalComponent } from '../modal/modal.component';
-import { BookActions } from '../../store/book/book.actions';
 import { SelectedBookActions } from '../../store/selected-book/selected-book.actions';
+import { BookActions } from '../../store/book/book.actions';
+import { ModalComponent } from '../modal/modal.component';
 import { Book } from '../../types/book';
 
 @Component({
-  selector: 'app-table',
-  standalone: true,
-  imports: [TuiTable, TuiPagination, TuiBlockStatus, ModalComponent],
-  templateUrl: './table.component.html',
-  styleUrl: './table.component.scss',
-  animations: [tuiFadeIn],
+	selector: 'app-table',
+	standalone: true,
+	imports: [
+		ModalComponent,
+		TuiTableDirective,
+		TuiTableTh,
+		TuiTableTbody,
+		TuiTableTd,
+		TuiPagination,
+		TuiBlockStatusComponent,
+		TuiBlockStatusDirective
+	],
+	templateUrl: './table.component.html',
+	styleUrl: './table.component.scss',
+	animations: [ tuiFadeIn ],
 })
 export class TableComponent {
-  @Input() books!: Book[];
-  @Input() length!: number;
-  @Input() index!: number;
+	@Input() books!: Book[];
+	@Input() length!: number;
+	@Input() index!: number;
 
-  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<PolymorpheusContent>;
+	@ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<PolymorpheusContent>;
+	@ViewChild('tableElement') tableElement!: ElementRef;
 
-  constructor(private store: Store, private dialogs: TuiDialogService) {}
+	constructor(private store: Store, private dialogs: TuiDialogService) {
+	}
 
-  handlePaginationButtonClick(index: number): void {
-    this.store.dispatch(new BookActions.UpdatePage(index));
-  }
+	handlePaginationButtonClick(index: number): void {
+		this.tableElement.nativeElement.scrollIntoView({ behavior: 'smooth'})
 
-  handleBookCardClick(key: string): void {
-    this.store.dispatch(new SelectedBookActions.UpdateKey(key));
+		this.store.dispatch(new BookActions.UpdatePage(index));
+	}
 
-    this.showDialog(this.dialogTemplate);
-  }
+	handleBookCardClick(key: string): void {
+		this.store.dispatch(new SelectedBookActions.UpdateKey(key));
 
-  showDialog(content: PolymorpheusContent): void {
-    this.dialogs.open(content).subscribe();
-  }
+		this.showDialog(this.dialogTemplate);
+	}
+
+	showDialog(content: PolymorpheusContent): void {
+		this.dialogs.open(content).subscribe();
+	}
 }

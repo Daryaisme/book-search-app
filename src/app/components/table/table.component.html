@@ -1,72 +1,76 @@
-@if(books.length > 0) {
-<table tuiTable>
-  <thead>
-    <tr>
-      <th tuiTh>Title</th>
-      <th tuiTh>Cover</th>
-      <th tuiTh>Author</th>
-      <th tuiTh>Rating</th>
-      <th tuiTh>Publish year</th>
-    </tr>
-  </thead>
+@if (books.length > 0) {
+	<table tuiTable #tableElement>
+		<thead>
+		<tr>
+			<th tuiTh>Title</th>
+			<th tuiTh>Cover</th>
+			<th tuiTh>Author</th>
+			<th tuiTh>Rating</th>
+			<th tuiTh>Publish year</th>
+		</tr>
+		</thead>
 
-  <tbody tuiTbody>
-    @for (book of books; track book.key) {
-    <tr (click)="handleBookCardClick(book.key)" class="table__tr">
-      <td tuiTd>
-        {{ book.title }}
-      </td>
+		<tbody tuiTbody>
+			@for (book of books; track book.key) {
+				<tr (click)="handleBookCardClick(book.key)" class="table__tr">
+					<td tuiTd>
+						{{ book.title }}
+					</td>
 
-      <td tuiTd>
-        <img
-          [src]="
-            book.cover_edition_key
-              ? 'https://covers.openlibrary.org/b/olid/' +
-                book.cover_edition_key +
-                '-M.jpg'
-              : '/assets/images/not-found.png'
-          "
-          [alt]="book.title"
-          width="128"
-        />
-      </td>
+					<td tuiTd>
+						<!--        <img-->
+						<!--          [src]="-->
+						<!--            book.cover_edition_key-->
+						<!--              ? 'https://covers.openlibrary.org/b/olid/' +-->
+						<!--                book.cover_edition_key +-->
+						<!--                '-M.jpg'-->
+						<!--              : '/assets/images/not-found.png'-->
+						<!--          "-->
+						<img [src]="book.cover_edition_key ?? '/assets/images/not-found.png'"
+							 [alt]="book.title"
+							 width="128"
+						/>
+					</td>
 
-      <td tuiTd>
-        @if (book.author_name) {
-        {{ book.author_name.join(", ") }}
-        }
-      </td>
+					<td tuiTd>
+						@if (book.author_name) {
+							{{ book.author_name.join(", ") }}
+						}
+					</td>
 
-      <td tuiTd>
-        @if (book.ratings_average) {
-        {{ book.ratings_average }}
-        }
-      </td>
+					<td tuiTd>
+						@if (book.ratings_average) {
+							{{ book.ratings_average }}
+						}
+					</td>
 
-      <td tuiTd>
-        @if (book.first_publish_year) {
-        {{ book.first_publish_year }}
-        }
-      </td>
-    </tr>
-    }
-  </tbody>
-</table>
+					<td tuiTd>
+						@if (book.first_publish_year) {
+							{{ book.first_publish_year }}
+						}
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 
-@if (length > 1) {
-<tui-pagination
-  [index]="index"
-  [length]="length"
-  (indexChange)="handlePaginationButtonClick($event)"
-/>
-} } @else {
-<tui-block-status>
-  <img src="/assets/images/no-results.png" alt="not found" tuiSlot="top" />
+	@if (length > 1) {
+		<tui-pagination
+				[index]="index"
+				[length]="length"
+				(indexChange)="handlePaginationButtonClick($event)"
+		/>
+	}
+} @else {
+	<tui-block-status>
+		<img src="/assets/images/no-results.png" alt="not found" tuiSlot="top"/>
 
-  <h4 class="notFound__text">Not found</h4>
+		<h4 class="notFound__text">Not found</h4>
 
-  Try to find something using input
-</tui-block-status>
+		Try to find something using input
+	</tui-block-status>
 }
 
-<ng-template #dialogTemplate><app-modal /></ng-template>
+<ng-template #dialogTemplate>
+	<app-modal/>
+</ng-template>
